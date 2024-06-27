@@ -1,6 +1,6 @@
+#pragma once
 #ifndef SHAPE_H
 #define SHAPE_H
-
 #include "hittable.h"
 #include "vec3.h"
 
@@ -9,7 +9,7 @@ class sphere : public hittable {
 public:
     sphere(const point3& center, double radius) : center_(center),  radius_(fmax(0,radius)) {}
 
-    bool hit(const ray& r, double t_min, double t_max, hit_record& rec) const override {
+    bool hit(const ray& r, interval ray_t, hit_record& rec) const override {
         vec3 oc = center_ - r.origin();
         auto a = r.direction().length_squared();
         auto h = dot(r.direction(), oc);
@@ -23,9 +23,9 @@ public:
 
         // Find the nearest root that lies in the acceptable range.
         auto root = (h - sqrtd) / a;
-        if(root <= t_min || root >= t_max){
+        if(!ray_t.surrounds(root)){
             root = (h + sqrtd) / a;
-            if(root <= t_min || root >= t_max){
+            if(!ray_t.surrounds(root)){
                 return false;
             }
         }

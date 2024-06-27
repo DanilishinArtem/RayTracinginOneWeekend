@@ -1,11 +1,12 @@
+#pragma once
 #ifndef RTWEEKEND_H
 #define RTWEEKEND_H
-#pragma once
 
 #include <cmath>
 #include <iostream>
 #include <limits>
 #include <memory>
+#include "interval.h"
 
 using namespace std;
 

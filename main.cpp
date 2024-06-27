@@ -10,7 +10,7 @@
 
 color ray_color(const ray& r, const hittable& world) {
     hit_record rec;
-    if (world.hit(r, 0, infinity, rec)) {
+    if (world.hit(r, interval(0, infinity), rec)) {
         return 0.5 * (rec.normal + color(1,1,1));
     }
 
@@ -34,11 +34,11 @@ int main() {
 
     hittable_list world;
 
-    world.add(make_shared<sphere>(point3(0,0,-1), 0.5));
-    world.add(make_shared<sphere>(point3(0,-100.5,-1), 100));
+    // world.add(make_shared<sphere>(point3(0,-100.5,-1), 100));
+    world.add(make_shared<sphere>(point3(0,-0.25,-1), 0.5));
+    world.add(make_shared<sphere>(point3(0,0.25,-1.2), 0.5));
 
     // Camera
-
     auto focal_length = 1.0;
     auto viewport_height = 2.0;
     auto viewport_width = viewport_height * (double(image_width)/image_height);
@@ -58,7 +58,6 @@ int main() {
     auto pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
 
     // Render
-
     std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
     for (int j = 0; j < image_height; j++) {
