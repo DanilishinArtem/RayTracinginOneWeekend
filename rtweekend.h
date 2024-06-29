@@ -7,10 +7,12 @@
 #include <limits>
 #include <memory>
 #include "interval.h"
+// #include "hittable.h"
 
 using namespace std;
 
 // C++ Std Using
+using std::fabs;
 using std::make_shared;
 using std::shared_ptr;
 using std::sqrt;
